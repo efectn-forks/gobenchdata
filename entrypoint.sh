@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e pipefail
-echo $INPUT_SUBDIRECTORIES
+
 # core configuration
 export GO_BINARY="${GO_BINARY:-"go"}"
 export GOBENCHDATA_BINARY="${GOBENCHDATA_BINARY:-"gobenchdata"}"
@@ -44,18 +44,25 @@ echo '📊 Running benchmarks...'
 RUN_OUTPUT="/tmp/gobenchdata/benchmarks.json"
 cd "${GITHUB_WORKSPACE}"
 
-IFS=" " read -ra SUBDIRECTORIES <<< "$SUBDIRECTORY"
+# Create temp file
+temp=$(mktemp)
+
+IFS=" " read -r SUBDIRECTORIES <<< "$INPUT_SUBDIRECTORY"
 for subdir in $SUBDIRECTORIES; do
+    pwd
     cd "${subdir}"
     ${GO_BINARY} test \
       -bench "${INPUT_GO_BENCHMARKS}" \
       -benchmem \
       ${INPUT_GO_TEST_FLAGS} \
       ${INPUT_GO_TEST_PKGS} |
-      ${GOBENCHDATA_BINARY} ${INPUT_GOBENCHDATA_PARSE_FLAGS} --json "${RUN_OUTPUT}" -v "${GITHUB_SHA}" -t "ref=${GITHUB_REF}"
-
+      tee -a $temp
     cd "${GITHUB_WORKSPACE}"
 done
+
+# Generate JSON from benchmark suites
+cat $temp | ${GOBENCHDATA_BINARY} ${INPUT_GOBENCHDATA_PARSE_FLAGS} --json "${RUN_OUTPUT}" -v "${GITHUB_SHA}" -t "ref=${GITHUB_REF}"
+rm $temp
 
 # fetch published data
 if [[ "${INPUT_PUBLISH}" == "true" || "${INPUT_CHECKS}" == "true" ]]; then
