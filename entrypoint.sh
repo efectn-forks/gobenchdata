@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e pipefail
-
+echo $INPUT_SUBDIRECTORIES
 # core configuration
 export GO_BINARY="${GO_BINARY:-"go"}"
 export GOBENCHDATA_BINARY="${GOBENCHDATA_BINARY:-"gobenchdata"}"
@@ -43,14 +43,19 @@ echo
 echo '📊 Running benchmarks...'
 RUN_OUTPUT="/tmp/gobenchdata/benchmarks.json"
 cd "${GITHUB_WORKSPACE}"
-cd "${INPUT_SUBDIRECTORY}"
-${GO_BINARY} test \
-  -bench "${INPUT_GO_BENCHMARKS}" \
-  -benchmem \
-  ${INPUT_GO_TEST_FLAGS} \
-  ${INPUT_GO_TEST_PKGS} |
-  ${GOBENCHDATA_BINARY} ${INPUT_GOBENCHDATA_PARSE_FLAGS} --json "${RUN_OUTPUT}" -v "${GITHUB_SHA}" -t "ref=${GITHUB_REF}"
-cd "${GITHUB_WORKSPACE}"
+
+IFS=" " read -ra SUBDIRECTORIES <<< "$SUBDIRECTORY"
+for subdir in $SUBDIRECTORIES; do
+    cd "${subdir}"
+    ${GO_BINARY} test \
+      -bench "${INPUT_GO_BENCHMARKS}" \
+      -benchmem \
+      ${INPUT_GO_TEST_FLAGS} \
+      ${INPUT_GO_TEST_PKGS} |
+      ${GOBENCHDATA_BINARY} ${INPUT_GOBENCHDATA_PARSE_FLAGS} --json "${RUN_OUTPUT}" -v "${GITHUB_SHA}" -t "ref=${GITHUB_REF}"
+
+    cd "${GITHUB_WORKSPACE}"
+done
 
 # fetch published data
 if [[ "${INPUT_PUBLISH}" == "true" || "${INPUT_CHECKS}" == "true" ]]; then
