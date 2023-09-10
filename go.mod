@@ -1,4 +1,4 @@
-module go.bobheadxi.dev/gobenchdata
+module github.com/efectn-forks/gobenchdata
 
 go 1.18
 
