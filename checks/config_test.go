@@ -19,10 +19,10 @@ func TestCheck_matchPackage(t *testing.T) {
 		// test some common intuitive cases
 		{"match on empty", fields{""}, args{"go.bobheadxi.dev/gobenchdata"}, true, false},
 		{"match on exact", fields{"^go.bobheadxi.dev/gobenchdata$"}, args{"go.bobheadxi.dev/gobenchdata"}, true, false},
-		{"fail on exact", fields{"^go.bobheadxi.dev/gobenchdata$"}, args{"go.bobheadxi.dev/gobenchdata/demo"}, false, false},
+		{"fail on exact", fields{"^go.bobheadxi.dev/gobenchdata$"}, args{"github.com/efectn-forks/gobenchdata/demo"}, false, false},
 		{"match on substring", fields{"go.bobheadxi.dev"}, args{"go.bobheadxi.dev/gobenchdata"}, true, false},
 		{"match on simple regex", fields{"go.bobheadxi.dev/."}, args{"go.bobheadxi.dev/gobenchdata"}, true, false},
-		{"match on excaped", fields{"go.bobheadxi.dev\\/gobenchdata\\/demo"}, args{"go.bobheadxi.dev/gobenchdata/demo"}, true, false},
+		{"match on excaped", fields{"go.bobheadxi.dev\\/gobenchdata\\/demo"}, args{"github.com/efectn-forks/gobenchdata/demo"}, true, false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

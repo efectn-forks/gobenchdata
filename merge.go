@@ -1,7 +1,7 @@
 package main
 
 import (
-	"go.bobheadxi.dev/gobenchdata/bench"
+	"github.com/efectn-forks/gobenchdata/bench"
 )
 
 func merge(files ...string) {

@@ -4,8 +4,8 @@ import (
 	"reflect"
 	"testing"
 
+	"github.com/efectn-forks/gobenchdata/bench"
 	"github.com/google/go-cmp/cmp"
-	"go.bobheadxi.dev/gobenchdata/bench"
 )
 
 func TestShowHelp(t *testing.T) {
@@ -32,7 +32,7 @@ func TestLoad(t *testing.T) {
 					{
 						Goos:   "linux",
 						Goarch: "amd64",
-						Pkg:    "go.bobheadxi.dev/gobenchdata/demo",
+						Pkg:    "github.com/efectn-forks/gobenchdata/demo",
 						Benchmarks: []bench.Benchmark{
 							{Name: "BenchmarkFib10/Fib()", Runs: 2819560, NsPerOp: 419, Mem: bench.Mem{BytesPerOp: 0, AllocsPerOp: 0, MBPerSec: 0}, Custom: nil},
 							{Name: "BenchmarkFib10/Fib()-2", Runs: 2991747, NsPerOp: 412, Mem: bench.Mem{BytesPerOp: 12, AllocsPerOp: 14, MBPerSec: 15}, Custom: nil},

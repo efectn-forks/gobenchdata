@@ -11,10 +11,10 @@ import (
 
 	"github.com/spf13/pflag"
 
-	"go.bobheadxi.dev/gobenchdata/bench"
-	"go.bobheadxi.dev/gobenchdata/checks"
-	"go.bobheadxi.dev/gobenchdata/internal"
-	"go.bobheadxi.dev/gobenchdata/web"
+	"github.com/efectn-forks/gobenchdata/bench"
+	"github.com/efectn-forks/gobenchdata/checks"
+	"github.com/efectn-forks/gobenchdata/internal"
+	"github.com/efectn-forks/gobenchdata/web"
 )
 
 // Version is the version of gobenchdata

@@ -41,7 +41,7 @@ PASS`,
 		}, &Suite{
 			Goos:   "darwin",
 			Goarch: "amd64",
-			Pkg:    "go.bobheadxi.dev/gobenchdata/demo",
+			Pkg:    "github.com/efectn-forks/gobenchdata/demo",
 			Benchmarks: []Benchmark{
 				{
 					Name: "BenchmarkFib10/Fib()-12", Runs: 3293298, NsPerOp: 330,
@@ -59,7 +59,7 @@ BenchmarkPizzas/Pizzas()-12	22866814	46.3 ns/op	9.00 pizzas	0 B/op	0 allocs/op
 PASS`}, &Suite{
 			Goos:   "darwin",
 			Goarch: "amd64",
-			Pkg:    "go.bobheadxi.dev/gobenchdata/demo",
+			Pkg:    "github.com/efectn-forks/gobenchdata/demo",
 			Benchmarks: []Benchmark{
 				{
 					Name: "BenchmarkFib10/FibSlow()-12", Runs: 3033732, NsPerOp: 358, Mem: Mem{BytesPerOp: 16, AllocsPerOp: 1},

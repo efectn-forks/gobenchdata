@@ -3,7 +3,7 @@ package checks
 import (
 	"os"
 
-	"go.bobheadxi.dev/gobenchdata/internal"
+	"github.com/efectn-forks/gobenchdata/internal"
 	"gopkg.in/yaml.v3"
 )
 
